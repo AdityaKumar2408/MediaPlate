@@ -10,9 +10,12 @@ function App() {
   const [chatMessages, setChatMessages] = useState([]);
   const [joined, setJoined] = useState(false);
 
+  const notificationSound = new Audio('/notification.wav'); // Assuming it's in the public folder
+
   useEffect(() => {
     socket.on('message', (msg) => {
       setChatMessages((prevMessages) => [...prevMessages, msg]);
+      notificationSound.play();
     });
 
     return () => {
