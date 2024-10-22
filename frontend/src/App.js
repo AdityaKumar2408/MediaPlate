@@ -1,9 +1,6 @@
-// src/App.js
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 
-// const socket = io('http://localhost:5000'); // Connect to Socket.IO server
-// const socket = io('https://mediaplate.onrender.com'); // Connect to Socket.IO server
 const socket = io('https://mediaplate.onrender.com');
 
 function App() {
@@ -14,12 +11,10 @@ function App() {
   const [joined, setJoined] = useState(false);
 
   useEffect(() => {
-    // Listen for new messages from the server
     socket.on('message', (msg) => {
       setChatMessages((prevMessages) => [...prevMessages, msg]);
     });
 
-    // Cleanup function to remove the event listener when the component unmounts
     return () => {
       socket.off('message');
     };
@@ -35,8 +30,8 @@ function App() {
   const sendMessage = () => {
     if (message && groupId) {
       socket.emit('sendMessage', { name, message, groupId });
-      setMessage(''); // Clear input field after sending
-    }
+      setMessage('');
+   }
   };
 
   return (
