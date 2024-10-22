@@ -2,7 +2,9 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 
-const socket = io('http://localhost:5000'); // Connect to Socket.IO server
+// const socket = io('http://localhost:5000'); // Connect to Socket.IO server
+// const socket = io('https://mediaplate.onrender.com'); // Connect to Socket.IO server
+const socket = io('https://mediaplate.onrender.com');
 
 function App() {
   const [name, setName] = useState('');
