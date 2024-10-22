@@ -51,12 +51,19 @@ const app = express();
 app.use(cors());
 
 const server = http.createServer(app);
+// const io = new Server(server, {
+//   cors: {
+//     origin: process.env.SOCKET_IO_ORIGIN, // Use the environment variable
+//     methods: ["GET", "POST"]
+//   }
+// });
 const io = new Server(server, {
   cors: {
-    origin: process.env.SOCKET_IO_ORIGIN, // Use the environment variable
+    origin: "https://bespoke-bubblegum-37956b.netlify.app", // Netlify URL
     methods: ["GET", "POST"]
   }
 });
+
 
 app.get('/', (req, res) => {
   res.send('Server is running perfectly!');
