@@ -44,12 +44,27 @@
 
 require('dotenv').config(); 
 const express = require('express');
+const app = express();
+const cors = require('cors');
+app.use(cors());
 const http = require('http');
 const { Server } = require('socket.io');
-const cors = require('cors');
 
-const app = express();
-app.use(cors());
+// const corsOptions = {
+//   origin: [
+//       "https://frolicking-licorice-ddb114.netlify.app", // Add your frontend link
+//       "http://localhost:3000",
+//       "http://localhost:3001", // Add localhost for development
+//       // Add any other origins you want to allow
+//   ],
+//   credentials: true, // Allow credentials
+//   optionSuccessStatus: 200 // For legacy browser support
+// };
+
+// Use CORS with the defined options
+
+
+// app.use(cors());
 
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -57,14 +72,15 @@ const io = new Server(server, {
     // origin: ["https://bespoke-bubblegum-37956b.netlify.app", "http://localhost:3001"], // Netlify URL
     // origin: ["http://localhost:3001","http://localhost:3000","https://capable-syrniki-760b81.netlify.app/"], // Netlify URL
     // origin: "http://localhost:3001", // Netlify URL
-    origin: ["https://frolicking-licorice-ddb114.netlify.app/","https://helpful-marigold-d93a98.netlify.app/"], // Netlify URL
+    // origin: ["https://frolicking-licorice-ddb114.netlify.app/","http://localhost:3000","http://localhost:3001"], // Netlify URL
+    origin: ["http://localhost:3000","http://localhost:3001"], // Netlify URL
     methods: ["GET", "POST"],
-    credentials:true
+    credentials:false
   }
 });
 
 app.get('/', (req, res) => {
-  res.send('Server is running perfectly!');
+  res.send('Server isss running perfectly!');
 });
 
 io.on('connection', (socket) => {
