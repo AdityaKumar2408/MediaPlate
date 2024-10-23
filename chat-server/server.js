@@ -41,15 +41,6 @@
 //   console.log(`Server is running on port ${PORT}`);
 // });
 
-
-require('dotenv').config(); 
-const express = require('express');
-const app = express();
-const cors = require('cors');
-app.use(cors());
-const http = require('http');
-const { Server } = require('socket.io');
-
 // const corsOptions = {
 //   origin: [
 //       "https://frolicking-licorice-ddb114.netlify.app", // Add your frontend link
@@ -66,19 +57,63 @@ const { Server } = require('socket.io');
 
 // app.use(cors());
 
+// require('dotenv').config(); 
+// const express = require('express');
+// const app = express();
+// const cors = require('cors');
+// app.use(cors());
+// const http = require('http');
+// const { Server } = require('socket.io');
+
+
+// const server = http.createServer(app);
+// const io = new Server(server, {
+//   cors: {
+//     // origin: ["https://bespoke-bubblegum-37956b.netlify.app", "http://localhost:3001"], // Netlify URL
+//     // origin: ["http://localhost:3001","http://localhost:3000","https://capable-syrniki-760b81.netlify.app/"], // Netlify URL
+//     // origin: "http://localhost:3001", // Netlify URL
+//     // origin: ["https://frolicking-licorice-ddb114.netlify.app/","http://localhost:3000","http://localhost:3001"], // Netlify URL
+//     origin: ["http://localhost:3000","http://localhost:3001"], // Netlify URL
+//     methods: ["GET", "POST"],
+//     credentials:false
+//   }
+// });
+// server.js
+require('dotenv').config();
+const express = require('express');
+const app = express();
+const cors = require('cors');
+const http = require('http');
+const { Server } = require('socket.io');
+
+// Apply CORS middleware with specific options
+app.use(cors({
+  origin: [
+    'https://lucent-boba-b99b3e.netlify.app',  // Your actual Netlify domain
+    'http://localhost:3000',
+    'http://localhost:3001'
+  ],
+  methods: ['GET', 'POST'],
+  credentials: true
+}));
+
 const server = http.createServer(app);
+
+// Configure Socket.IO with matching CORS settings
 const io = new Server(server, {
   cors: {
-    // origin: ["https://bespoke-bubblegum-37956b.netlify.app", "http://localhost:3001"], // Netlify URL
-    // origin: ["http://localhost:3001","http://localhost:3000","https://capable-syrniki-760b81.netlify.app/"], // Netlify URL
-    // origin: "http://localhost:3001", // Netlify URL
-    // origin: ["https://frolicking-licorice-ddb114.netlify.app/","http://localhost:3000","http://localhost:3001"], // Netlify URL
-    origin: ["http://localhost:3000","http://localhost:3001"], // Netlify URL
-    methods: ["GET", "POST"],
-    credentials:false
+    origin: [
+      'https://lucent-boba-b99b3e.netlify.app',  // Your actual Netlify domain
+      'http://localhost:3000',
+      'http://localhost:3001'
+    ],
+    methods: ['GET', 'POST'],
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization']
   }
 });
 
+// Rest of your server code remains the same...
 app.get('/', (req, res) => {
   res.send('Server isss running perfectly!');
 });
